@@ -1,0 +1,18 @@
+spring.application.name=API-Gateway
+
+server.port = 7777
+
+# Enable Eureka client for service discovery
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true 
+
+# Routing configuration for Spring Cloud Gateway
+spring.cloud.gateway.routes[0].id=Currency-Server
+spring.cloud.gateway.routes[0].uri=lb://Currency-Server
+spring.cloud.gateway.routes[0].predicates[0]=Path=/api/v1/from/{from}/to/{to}/quantity/{quantity}
+
+spring.cloud.gateway.routes[1].id=Currency-Exchnage
+spring.cloud.gateway.routes[1].uri=lb://Currency-Exchnage
+spring.cloud.gateway.routes[1].predicates[0]=Path=/api/v1/from/{from}/to/{to}
+
